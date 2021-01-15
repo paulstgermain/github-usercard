@@ -9,8 +9,6 @@ const cardsDiv = document.querySelector('.cards');
 
 axios.get('https://api.github.com/users/paulstgermain')
 .then(result => {
-    // console.log(result.data);
-    // console.log(cardMaker(result.data));
     cardsDiv.append(cardMaker(result.data));
 })
 
@@ -83,6 +81,7 @@ function cardMaker(data){
   const name = document.createElement('h3');
   const username = document.createElement('p');
   const location = document.createElement('p');
+  const profile = document.createElement('p');
   const profileLink = document.createElement('a');
   const followers = document.createElement('p');
   const following = document.createElement('p');
@@ -93,7 +92,7 @@ function cardMaker(data){
   cardInfo.append(name);
   cardInfo.append(username);
   cardInfo.append(location);
-  cardInfo.append(profileLink);
+  cardInfo.append(profile);
   cardInfo.append(followers);
   cardInfo.append(following);
   cardInfo.append(bio);
@@ -107,12 +106,13 @@ function cardMaker(data){
   name.innerText = data.name;
   username.innerText = data.login;
   location.innerText = `Location: ${data.location}`;
+  profile.innerText = 'Profile: ';
   profileLink.setAttribute('href', data.html_url);
-  profileLink.innerText = 'Profile';
+  profileLink.innerText = data.html_url;
+  profile.appendChild(profileLink);
   followers.innerText = `Followers: ${data.followers}`;
   following.innerText = `Following: ${data.following}`;
   bio.innerText = `Bio: ${data.bio}`;
-
   return card;
 
     // cardDiv.innerHTML = `
